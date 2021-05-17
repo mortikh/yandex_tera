@@ -1,0 +1,60 @@
+- hosts: all
+  become: yes
+  tasks:
+   - name: Installing Docker
+     apt:
+       name: docker.io
+       state: present
+       update_cache: true
+
+   - name: Installing APT Transport HTTPS
+     apt:
+       name: apt-transport-https
+       state: present
+
+   - name: Adding Kubernetes apt-key
+     apt_key:
+       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+       state: present
+
+   - name: Adding Kubernetes' APT repository
+     apt_repository:
+      repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+      state: present
+      filename: 'kubernetes'
+
+   - name: Installing kubelet
+     apt:
+       name: kubelet
+       state: present
+       update_cache: true
+
+   - name: Installing kubeadm
+     apt:
+       name: kubeadm
+       state: present
+
+   - name: Installing kubectl
+     apt:
+       name: kubectl
+       state: present
+       force: yes
+
+   - name: Disable swap ATM
+     command: swapoff -a
+
+   - name: Disable swap permanently
+     replace:
+       path: /etc/fstab
+       regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+       replace: '# \1'
+   
+- hosts: master
+  become: yes
+  tasks:
+    - name: Init Master node
+      include_tasks: master.yml
+
+- import_playbook: workers.yml
+
+- import_playbook: local.yml
