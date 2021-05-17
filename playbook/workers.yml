@@ -1,0 +1,19 @@
+- hosts: master
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: Getting join command
+      shell: kubeadm token create --print-join-command
+      register: join_command_raw
+
+    - name: Saving join command
+      set_fact:
+        join_command: "{{ join_command_raw.stdout_lines[0] }}"
+
+- hosts: workers
+  become: yes
+  tasks:
+    - name: Join cluster
+      shell: "{{ hostvars['master_node'].join_command }}"
+      register: command_output
+      failed_when: "'WARNING' not in command_output.stderr"

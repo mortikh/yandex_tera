@@ -1,0 +1,24 @@
+- name: Initialize the cluster
+  shell: kubeadm init --control-plane-endpoint "{{ ansible_host }}"
+  register: command_output
+  failed_when: "'WARNING' not in command_output.stderr"
+
+- name: Creating .kube directory
+  become: yes
+  become_user: ubuntu
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: 0755
+
+- name: Copy admin.conf to user's kube config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/ubuntu/.kube/config
+    remote_src: yes
+    owner: ubuntu
+
+- name: Installing Pod network
+  become: yes
+  become_user: ubuntu
+  shell: kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
