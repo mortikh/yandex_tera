@@ -10,7 +10,7 @@ Once you clonned repository, few more things should be done:
 * Make sure that [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 * You need to create 2 files:
 
--- ```vars.tf``` with filled default variables:
+- ```vars.tf``` with filled default variables:
 ```
 variable "token" {
   type    = string
@@ -43,7 +43,7 @@ variable "subnet_id" {
 }
 ```
 
--- ```ansible.cfg``` in ```playbook/``` directory:
+- ```ansible.cfg``` in ```playbook/``` directory:
 
 ```
 [defaults]
