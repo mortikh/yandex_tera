@@ -9,7 +9,7 @@ Once you clonned repository, few more things should be done:
 * Make sure that [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) is insalled
 * Make sure that [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 * You need to create 2 files:
-* 
+
 -- ```vars.tf``` with filled default variables:
 ```
 variable "token" {
