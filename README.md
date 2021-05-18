@@ -55,7 +55,7 @@ remote_user = YOUR_USER_ON_TARGET_HOST
 ____
 
 ## How to use?
-1. Run ```terraform init ``` to initialize terraform providers
+1. Run ```terraform init``` to initialize terraform providers
 2. Terraform will automatically prepare inventory file for a ansible purposes. You can check it manually by ```cat playbook/hosts```
 
    > Due the fact the yandex providing IP address before SSH agent (I guess) was started, it's better to ping one of the output IPs before proceed to next step.
