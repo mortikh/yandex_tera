@@ -56,12 +56,13 @@ ____
 
 ## How to use?
 1. Run ```terraform init``` to initialize terraform providers
-2. Terraform will automatically prepare inventory file for a ansible purposes. You can check it manually by ```cat playbook/hosts```
+2. Run ```terraform apply``` to ad setup VM instances
+3. Terraform will automatically prepare inventory file for a ansible purposes. You can check it manually by ```cat playbook/hosts```
 
    > Due the fact the yandex providing IP address before SSH agent (I guess) was started, it's better to ping one of the output IPs before proceed to next step.
 
-3. Now you need to move into ```playbook``` directory and run ```ansible-playbook setup.yml```
-4. On the latest step ansible will show you token, required to login onto **Dashboard**
-5. Run ```kubectl proxy``` locally
-6. Login to [Dashboard](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/) with your token
+4. Now you need to move into ```playbook``` directory and run ```ansible-playbook setup.yml```
+5. On the latest step ansible will show you token, required to login onto **Dashboard**
+6. Run ```kubectl proxy``` locally
+7. Login to [Dashboard](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/) with your token
 
